@@ -1,0 +1,78 @@
+@import "../../utils/variables";
+@import "../../utils/mixin";
+
+.card{
+  background: #fff;
+}
+
+.cardArticle{
+  padding: 0 30px;
+  margin-bottom: 20px;
+  .cardHeader{
+    display: flex;
+    padding: 18px 0;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 26px;
+    color: #333333;
+    .authorColumn{
+      display: flex;
+      align-items: center;
+      @extend %img-wrapper;
+      .itemTitle{
+        font-size: 26px;
+      }
+      .authorImg{
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        margin-right: 20px;
+      }
+    }
+  }
+  .cardBody{
+    padding-bottom: 20px;
+  }
+  .itemGoods{
+    background: #ffffff;
+    position: relative;
+  }
+  .mediaColumn{
+    display: flex;
+    .itemMedia{
+      &.itemMediaColumn1 {
+        font-size: 0;
+        @extend %img-wrapper;
+        .itemImg{
+          margin-right: 20px;
+          width: 456px;
+          height: 342px;
+        }
+      }
+      &.itemMediaColumn2 {
+        height: 342px;
+        width: auto;
+        @extend %img-wrapper;
+        .itemImg{
+          width: 214px;
+          height: 162px;
+        }
+        .itemImgTop{
+          margin-bottom: 18px;
+        }
+      }
+    }
+  }
+  .itemInner{
+    .title{
+      font-size: 26px;
+      color: #333333;
+      line-height: 52px;
+    }
+    .itemSubtitle{
+      font-size: 22px;
+      color: #999999;
+      line-height: 32px;
+    }
+  }
+}

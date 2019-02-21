@@ -1,0 +1,71 @@
+@import "../../utils/variables.scss";
+@import "../../utils/mixin.scss";
+
+.channelContainer {
+  width: 100%;
+  background: #ffffff;
+  position: absolute;
+  top: 86px;
+  .channelPanel {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 0 0 0 30px;
+    height: 80px;
+    background: #ffffff;
+    .icon {
+      flex: 0 0 100px;
+      height: 100%;
+    }
+    .iconVTop {
+      position: relative;
+      &::after {
+        content: " ";
+        @include v-arrow($direction: top);
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%) rotate(-45deg);
+        box-sizing: border-box;
+        margin-top: 4px;
+      }
+    }
+    .iconVBottom {
+      position: relative;
+      &::after {
+        content: " ";
+        @include v-arrow($direction: bottom);
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%) rotate(-45deg);
+        box-sizing: border-box;
+        margin-top: -4px;
+      }
+    }
+    .text {
+      font-size: 30px;
+      line-height: 78px;
+      color: #666;
+    }
+    .channelScrollWrapper{
+      white-space: nowrap;
+      overflow-x: auto;
+      overflow-y: hidden;
+      flex: 1;
+      -webkit-overflow-scrolling: touch;
+
+    }
+
+  }
+
+  .channelList {
+    margin-top: 22px;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    padding-left: 30px;
+
+  }
+}

@@ -1,0 +1,112 @@
+@import "../../utils/variables.scss";
+@import "../../utils/mixin.scss";
+
+.item {
+  margin-top: 40px;
+  margin-left: 30px;
+  margin-right: 30px;
+  padding: 20px 10px;
+  display: flex;
+  background: #fff;
+  position: relative;
+  &.item_reverse {
+    flex-direction: row-reverse;
+  }
+  .media {
+    padding: 20px 10px;
+    position: relative;
+    .mediaImg {
+      width: 324px;
+      height: 324px;
+    }
+    .mediaTag {
+      position: absolute;
+      top: 0;
+      writing-mode: vertical-rl;
+      // height: 140px;
+      color: #ffffff;
+      background-color: transparent !important;
+      background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAABFCAYAAABQZybRAAAAAXNSR0IArs4c6QAAAeJJREFUWAntk71KA1EQhc9sEoxECBKCgnaCgqAiksJKC8HEwkqwEfEBfAtfwQcQsRGsIhgLi1hZqCgWFoKVCjZRxEKDmnHuaszfumMKu7nN3p357pm9Z2aJR2ZP8I/L+0dtX9oKqA6bRWaR6oAK2BSZRaoDKmBTZBapDqiATZFZpDqgAjZFZpHqgArYFJlFqgMqYFNkFqkOqIBNkVmkOqACNkWqRVEhLkCUAnOfSrcDEN2JZskDIQ2wPOkMoFI7GsGsaPhaThPpuiZzL4hfwFLIo+fgwyFRd8addRoQre9VV8CPROBJsoJH+YpziZSrYMiz7LPujDsLROpZ14PWRRyTYI9c8Ua+6lX2w76NDSRV5PVSvjguOccGruACNTQhAgkpciX9kdvy4FfKvcs9iVM1NHinFfjW46S/IeQBV6eSCZZrjf6tALxbRHiTzvaPnASPZyfxQctyif5WycZIc5Mbs8CDNHAdQ12rVXEH+HuJ+TnHhCzi0dndljyRG7UddJfzVCy6Jv+6eHo6jseOeSm7ID9WZzPYWIDwLr0sIPK2TacHT81w2DtPzCTxEVuU/uTA+LG+roB3iA7aouO9+zAhLceZuV6UeUn6M+VY4rHsGqK0QaeFa+1wO3meyA3gnVc+Aas/ev4nnfFtAAAAAElFTkSuQmCC);
+      background-repeat: no-repeat;
+      background-size: 100% 100%;
+      font-size: 22px;
+      line-height: 26px;
+      border: 0;
+      border-radius: 0;
+      padding: 0 12px;
+
+      .mediaTagText {
+        padding: 0.29867rem 0;
+      }
+
+      &.mediaTagLeft{
+        left:0;
+      }
+      &.mediaTagRight{
+        right: 0;
+      }
+    }
+  }
+
+  .inner {
+    position: relative;
+    min-width: 320px;
+    flex: 1;
+    .promotion {
+      color: #999;
+      font-size: 40px;
+      min-height: 110px;
+      font-weight: 200;
+      line-height: 56px;
+
+      @extend %ellipsis2;
+    }
+    .title {
+      font-weight: 800;
+      font-size: 30px;
+      line-height: 68px;
+      @extend %ellipsis;
+      color: #333;
+    }
+    .subtitle {
+      font-weight: 200;
+      font-size: 26px;
+      color: #333;
+      line-height: 38px;
+      @extend %ellipsis;
+      &::after {
+        content: " ";
+      }
+    }
+    .price{
+      display: flex;
+      align-items: center;
+      .priceItem {
+        font-weight: 400;
+        font-size: 40px;
+        line-height: 56px;
+        color: $color-primary;
+      }
+      line-height: 22px;
+      font-size: 20px;
+      color: #ff2d47;
+      .priceSale {
+        font-weight: 400;
+        font-size: 24px;
+        margin-right: 4px;
+      }
+      .priceOrigin{
+        text-decoration: line-through;
+        color: #999999;
+        line-height: 40px;
+        font-weight: 400;
+        font-size: 22px;
+      }
+      .priceType{
+
+      }
+    }
+  }
+}
+
+

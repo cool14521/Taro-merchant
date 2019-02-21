@@ -1,0 +1,16 @@
+@import "utils/variables.scss";
+@import "utils/mixin.scss";
+@import "utils/reset.scss";
+
+html {
+  box-sizing: border-box;
+}
+
+body {
+  max-width: 640PX;
+  margin: 0 auto;
+}
+
+div {
+  @extend %border-box;
+}

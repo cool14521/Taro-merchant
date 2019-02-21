@@ -1,0 +1,53 @@
+@import "../../utils/variables.scss";
+@import "../../utils/mixin.scss";
+.favorite {
+  background: #f4f4f4;
+  padding: 0 18px;
+  margin-top: 40px;
+  display:flex;
+  flex-wrap:wrap;
+  .favoriteLeft {
+    margin-right: 18px;
+    flex-grow: 1;
+    .banner{
+      margin-bottom: 20px;
+      width: 348px;
+      height: 678px;
+      border-radius: 8px;
+      .bannerImg{
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+  .favoriteRight {
+    flex-grow: 1;
+    .more {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 348px;
+      height: 98px;
+      font-weight: 400;
+      font-size: 26px;
+      color: #333;
+      border-color: #fff;
+      background-color: #fff;
+      .moreIcon {
+        position: relative;
+        width: 32px;
+        height: 72px;
+        &::after {
+          content: "";
+          @include v-arrow;
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%) rotate(45deg);
+          box-sizing: border-box;
+          margin-left: px2rem(-4px);
+        }
+      }
+    }
+  }
+}

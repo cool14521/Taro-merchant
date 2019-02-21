@@ -1,0 +1,52 @@
+@import "../../utils/variables";
+.topBar {
+  width: 100%;
+  background: #fff;
+  .bar {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    position: relative;
+    background: #ffffff;
+    height: 88px;
+    justify-content: space-between;
+    .barItem {
+      padding: 0 30px;
+      .iconSearch {
+        height: 40px;
+        width: 40px;
+      }
+      .iconLogo {
+        width: 262px;
+        height: 20px;
+      }
+    }
+    .message {
+      position: relative;
+      .badge {
+        position: absolute;
+        right: -1px;
+        top: 0;
+        &.badgeCircle{
+          width: 10px;
+          min-width: 10px;
+          height: 10px;
+          border-radius: 10px;
+          padding: 0;
+        }
+        border-color: $color-primary;
+        color: $color-primary;
+        &._solid {
+          background-color: $color-primary;
+          border-color: $color-primary;
+          color: #ffffff;
+        }
+        &.tagDisabled {
+          border-color: #ccc;
+          margin-left: px2rem(5px);
+        }
+      }
+    }
+  }
+}
+

@@ -1,0 +1,26 @@
+@import "../../utils/variables.scss";
+.wrap {
+  height: 100vh;
+  position: relative;
+  overflow-y: hidden;
+  overflow-x: auto;
+  background: #f4f4f4;
+}
+
+.barAbsoluteTop{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: $bar-zindex;
+}
+
+.content {
+  // position: relative;
+  overflow-y: scroll;
+  height: 100%;
+  // width: 100%;
+  padding-bottom: 88px;
+  background: #ffffff;
+}
+
