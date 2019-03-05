@@ -27,6 +27,7 @@ class App extends Component {
    */
   config: Config = {
     pages: [
+      'pages/report/day',
       'pages/report/index',
       'pages/index/index',
       'pages/order/index',
