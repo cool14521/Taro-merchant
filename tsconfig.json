@@ -23,6 +23,7 @@
     ],
     "paths": {
       "@/components/*": ["./src/components/*"],
+      "@/constants/*": ["./src/constants/*"],
       "@/scss/*": ["./src/scss/*"]
     }
   },

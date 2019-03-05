@@ -27,7 +27,8 @@ const config = {
   },
   alias: {
     '@/components': path.resolve(__dirname, '..', 'src/components'),
-    '@/sass': path.resolve(__dirname, '..', 'src/sass')
+    '@/constants': path.resolve(__dirname, '..', 'src/constants'),
+    '@/scss': path.resolve(__dirname, '..', 'src/scss')
   },
   defineConstants: {
   },
@@ -65,7 +66,7 @@ const config = {
         cssModules: {
           enable: true, // 默认为 false，如需使用 css modules 功能，则设为 true
           config: {
-            namingPattern: 'module', // 转换模式，取值为 global/module
+            namingPattern: 'global/module', // 转换模式，取值为 global/module
             generateScopedName: '[name]__[local]___[hash:base64:5]'
           }
         }
