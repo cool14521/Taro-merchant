@@ -2,7 +2,7 @@
   "miniprogramRoot": "./dist",
   "projectname": "merchant",
   "description": "picc-merchant",
-  "appid": "touristappid",
+  "appid": "wxb0f586e469116d09",
   "setting": {
     "urlCheck": true,
     "es6": false,
