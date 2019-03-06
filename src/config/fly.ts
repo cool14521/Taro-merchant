@@ -2,9 +2,11 @@
 import Taro from "@tarojs/taro";
 import { ResponseError, ResponseNeedLogin } from "@/constants/response";
 import {FlyModal} from 'flyio'
-const BASE_URL = process.env.BASE_URL;
-const TOKEN_KEY = process.env.TOKEN_KEY;
 
+// const BASE_URL = process.env.BASE_URL;
+// const TOKEN_KEY = process.env.TOKEN_KEY;
+const BASE_URL = 'http://192.168.3.103:58080';
+const TOKEN_KEY = 'Cookie';
 let Fly :FlyModal
 if(process.env.TARO_ENV === 'h5') {
   Fly = require("flyio/dist/npm/fly")
@@ -36,7 +38,7 @@ fly.config.baseURL = BASE_URL
 
 fly.interceptors.request.use(async request => {
   try{
-    Taro.setStorageSync(TOKEN_KEY, 'Bearer eyJhbGciOiJIUzI1NiIsImNhbGciOiJERUYifQ.eNoczcsOgjAQheF36ZpFp3QsZenKLRgTXZGWGWKVCIGCt_juVpfnz5ect5iYwtysrg_kIjdxuPJNlMJQB-xBOtLIHZmWjO5aLByjQpeDyMS8-ASHA_tqVfdzP9pXPvqirnfrdv88nuYqoWXmqQmUIGiTNj9GUQIiwAasUpkILv6DRDTwC5cYkrba60JiayRKrbiznnQrSadzax158fkCAAD__w.gF-a78NIEwACX6CtkPYjzHQMFrTcJUznkE48D09v3FQ')
+    Taro.setStorageSync(TOKEN_KEY, 'UM_distinctid=16904b9b34c3de-0c24cd165259c2-2d604637-4a640-16904b9b350734; user_openid_key=o3bHtvwI6jwQKu2y-LadPLyFJsjA; CNZZDATA1271314006=609547892-1550558314-http%253A%252F%252Flocalhost%253A8089%252F%7C1551846512')
     // request.headers[TOKEN_KEY] = Taro.getStorageSync(TOKEN_KEY)
     const result = await Taro.getStorage({key: TOKEN_KEY})
     request.headers[TOKEN_KEY] = result.data

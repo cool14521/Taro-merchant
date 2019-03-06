@@ -24,7 +24,9 @@
     "paths": {
       "@/components/*": ["./src/components/*"],
       "@/constants/*": ["./src/constants/*"],
-      "@/scss/*": ["./src/scss/*"]
+      "@/scss/*": ["./src/scss/*"],
+      "@/config/*": ["./src/config/*"],
+      "@/models/*": ["./src/models/*"]
     }
   },
   "compileOnSave": false
