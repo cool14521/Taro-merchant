@@ -7,7 +7,7 @@ import {ResponseSuccess} from '@/constants/response'
 import { reportDay } from '@/models/report'
 // import '@/scss/pages/report/day.scss'
 import styles from '@/scss/pages/report/day.scss'
-
+import moment from 'moment'
 
 type PageStateProps = {}
 
@@ -17,7 +17,11 @@ type PageOwnProps = {}
 
 type PageState = {
   ec: any,
-  value: string,
+  refChart: any,
+  startMinDate: string,
+  startMaxDate: string,
+  endMinDate: string,
+  endMaxDate: string,
   startDate: string,
   endDate: string
 }
@@ -29,32 +33,28 @@ interface Index {
   state: PageState
 }
 
-function initChart(canvas, width, height) {
-  var chart = echarts.init(canvas, null, {
-    width: width,
-    height: height
-  });
-  canvas.setChart(chart);
-
+function setChartData(chart, data) {
+  let xValue: string[] = []
+  let seriesValue: string[] = []
+  data.forEach(element => {
+    xValue.push(element.name)
+    seriesValue.push(element.money)
+  })
   var option = {
     xAxis: {
         type: 'category',
-        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+        data: xValue
     },
     yAxis: {
         type: 'value'
     },
     series: [{
-        data: [820, 932, 901, 934, 1290, 1330, 1320],
+        data: seriesValue,
         type: 'line'
     }]
-};
-
-
+  }
   chart.setOption(option);
-  return chart;
 }
-
 
 class Index extends Component {
   config: Config = {
@@ -68,17 +68,17 @@ class Index extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      refChart: null,
       ec: {
-        onInit: initChart
+        lazyLoad: true
       },
-      value: '2019.03.02',
-      startDate: '2019-03-01',
-      endDate: '2019-03-06'
+      startMinDate: moment().subtract(31, 'd').format('YYYY-MM-DD'), // 开始日期的最小值
+      startMaxDate: moment().format('YYYY-MM-DD'), // 开始日期的最大值
+      endMinDate: moment().format('YYYY-MM-DD'), // 结束日期的最小值
+      endMaxDate: moment().add(31, 'd').format('YYYY-MM-DD'), // 结束日期的最大值
+      startDate: moment().format('YYYY-MM') + '-01', // 开始日期
+      endDate: moment().format('YYYY-MM-DD') // 结束日期
     }
-  }
-
-  componentWillMount() {
-    this.fetchData()
   }
 
   // 获取数据
@@ -94,7 +94,7 @@ class Index extends Component {
         endDate: this.state.endDate
       })
       if(res.data.code === ResponseSuccess){
-        console.log(8)
+        this.refresh(res.data.data)
       }
       Taro.hideLoading()
     }catch(e) {
@@ -102,21 +102,46 @@ class Index extends Component {
     }
   }
 
-  onStartDataChange(e) {
-    this.setState({
-      startDate: e.detail.value
+  refresh(data) {
+    this.state.refChart.init((canvas, width, height) => {
+      const chart = echarts.init(canvas, null, {
+        width: width,
+        height: height
+      });
+      setChartData(chart, data)
     })
   }
 
+  // 选择开始时间
+  onStartDataChange(e) {
+    this.setState({
+      startDate: e.detail.value
+    }, () => {
+      this.fetchData()
+    })
+  }
+
+  // 选择结束时间
   onEndDataChange(e) {
     this.setState({
       endDate: e.detail.value
+    }, () => {
+      this.fetchData()
+    })
+  }
+
+  // 实例化之后再去请求接口
+  onChart = node => {
+    this.setState({
+      refChart: node
+    }, () => {
+      this.fetchData()
     })
   }
 
   render () {
     return (
-      <View className="d">
+      <View className="">
         <View className={styles.canvasWrap}>
           <View className={styles.selectArea}>
             <View className={styles.title}>统计日期为：{this.state.startDate} 至 {this.state.endDate}</View>
@@ -124,8 +149,8 @@ class Index extends Component {
               <Picker
                 value={this.state.startDate}
                 mode='date'
-                start="2015-09-01"
-                end="2017-09-01"
+                start={this.state.startMinDate}
+                end={this.state.startMaxDate}
                 onChange={this.onStartDataChange}>
                   <View className={styles.start}>
                   {this.state.startDate}
@@ -135,8 +160,8 @@ class Index extends Component {
               <Picker
                 value={this.state.endDate}
                 mode='date'
-                start="2015-09-01"
-                end="2017-09-01"
+                start={this.state.startDate}
+                end={this.state.endMaxDate}
                 onChange={this.onEndDataChange}>
                   <View className={styles.start}>
                   {this.state.endDate}
@@ -144,7 +169,7 @@ class Index extends Component {
               </Picker>
             </View>
           </View>
-          <ec-canvas id='mychart-dom-area' canvas-id='mychart-area' ec={this.state.ec}></ec-canvas>
+          <ec-canvas ref={this.onChart} id='mychart-dom-area' canvas-id='mychart-area' ec={this.state.ec}></ec-canvas>
         </View>
       </View>
     )
