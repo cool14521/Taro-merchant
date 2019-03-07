@@ -1,0 +1,21 @@
+.orderWrap{
+  .title{
+    padding: 20px;
+  }
+}
+
+.listTable{
+  background: #fff;
+  .tableHeader, .tableBody{
+    display: flex;
+    justify-content: space-around;
+    border-bottom: 1px solid #eeeeee;
+  }
+
+  .tableItem{
+    font-size: 24px;
+    line-height: 90px;
+    width: 120px;
+    text-align: center;
+  }
+}

@@ -4,10 +4,11 @@ import { View, Picker } from '@tarojs/components'
 import * as echarts from '@/components/ec-canvas/echarts'
 import fly from '@/config/fly'
 import {ResponseSuccess} from '@/constants/response'
-import { reportDay } from '@/models/report'
+import { reportDay, orderDetail } from '@/models/report'
 // import '@/scss/pages/report/day.scss'
 import styles from '@/scss/pages/report/day.scss'
 import moment from 'moment'
+import OrderDetail from '@/components/orderDetail'
 
 type PageStateProps = {}
 
@@ -23,7 +24,8 @@ type PageState = {
   endMinDate: string,
   endMaxDate: string,
   startDate: string,
-  endDate: string
+  endDate: string,
+  data: orderDetail[]
 }
 
 type IProps = PageStateProps & PageDispatchProps & PageOwnProps
@@ -72,6 +74,7 @@ class Index extends Component {
       ec: {
         lazyLoad: true
       },
+      data: [],
       startMinDate: moment().subtract(31, 'd').format('YYYY-MM-DD'), // 开始日期的最小值
       startMaxDate: moment().format('YYYY-MM-DD'), // 开始日期的最大值
       endMinDate: moment().format('YYYY-MM-DD'), // 结束日期的最小值
@@ -94,6 +97,9 @@ class Index extends Component {
         endDate: this.state.endDate
       })
       if(res.data.code === ResponseSuccess){
+        this.setState({
+          data: res.data.data
+        })
         this.refresh(res.data.data)
       }
       Taro.hideLoading()
@@ -171,6 +177,8 @@ class Index extends Component {
           </View>
           <ec-canvas ref={this.onChart} id='mychart-dom-area' canvas-id='mychart-area' ec={this.state.ec}></ec-canvas>
         </View>
+
+        <OrderDetail headerList={['日期', '订单数', '结算金额']} bodyList={this.state.data}/>
       </View>
     )
   }
