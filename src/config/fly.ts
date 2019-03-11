@@ -8,11 +8,12 @@ import {FlyModal} from 'flyio'
 const BASE_URL = 'http://192.168.3.103:58080';
 const TOKEN_KEY = 'Cookie';
 let Fly :FlyModal
-if(process.env.TARO_ENV === 'h5') {
-  Fly = require("flyio/dist/npm/fly")
-}else {
-  Fly = require('flyio/dist/npm/wx')
-}
+// if(process.env.TARO_ENV === 'h5') {
+//   Fly = require("flyio/dist/npm/fly")
+// }else {
+//   Fly = require('flyio/dist/npm/wx')
+// }
+Fly = require('flyio/dist/npm/wx')
 
 // 全局设置
 // Fly.config.timeout = 10000;
@@ -38,7 +39,7 @@ fly.config.baseURL = BASE_URL
 
 fly.interceptors.request.use(async request => {
   try{
-    Taro.setStorageSync(TOKEN_KEY, 'UM_distinctid=16904b9b34c3de-0c24cd165259c2-2d604637-4a640-16904b9b350734; CNZZDATA1271314006=609547892-1550558314-http%253A%252F%252Flocalhost%253A8089%252F%7C1551920472; SESSION=2b99ffae-6a6c-496b-9733-a81cf9ad3272; user_openid_key=o3bHtvwI6jwQKu2y-LadPLyFJsjA')
+    Taro.setStorageSync(TOKEN_KEY, 'UM_distinctid=16904b9b34c3de-0c24cd165259c2-2d604637-4a640-16904b9b350734; SESSION=fca7aae4-8df6-4a07-8b8b-c7e5d0de2b63; CNZZDATA1271314006=609547892-1550558314-http%253A%252F%252Flocalhost%253A8089%252F%7C1552264771; user_openid_key=o3bHtvwI6jwQKu2y-LadPLyFJsjA')
     // request.headers[TOKEN_KEY] = Taro.getStorageSync(TOKEN_KEY)
     const result = await Taro.getStorage({key: TOKEN_KEY})
     request.headers[TOKEN_KEY] = result.data

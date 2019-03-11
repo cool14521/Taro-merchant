@@ -1,6 +1,8 @@
 import { ComponentClass } from 'react'
 import Taro, { Component, Config } from '@tarojs/taro'
-import { View } from '@tarojs/components'
+import { View, Input } from '@tarojs/components'
+import styles from '@/scss/pages/order/index.scss'
+import Filter from '@/components/filter'
 
 type PageStateProps = {}
 
@@ -24,7 +26,12 @@ class Index extends Component {
 
   render () {
     return (
-      <View></View>
+      <View className={styles['order_wrap']}>
+        <View className={styles['search_wrap']}>
+          <Input className={styles['search']} placeholder="输入订单号" />
+        </View>
+        <Filter />
+      </View>
     )
   }
 }

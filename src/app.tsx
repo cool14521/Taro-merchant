@@ -27,10 +27,10 @@ class App extends Component {
    */
   config: Config = {
     pages: [
+      'pages/order/index',
       'pages/report/index',
       'pages/report/day',
       'pages/index/index',
-      'pages/order/index',
       'pages/user/index'
     ],
     window: {

@@ -26,7 +26,8 @@
       "@/constants/*": ["./src/constants/*"],
       "@/scss/*": ["./src/scss/*"],
       "@/config/*": ["./src/config/*"],
-      "@/models/*": ["./src/models/*"]
+      "@/models/*": ["./src/models/*"],
+      "@/static/*": ["./src/static/*"]
     }
   },
   "compileOnSave": false

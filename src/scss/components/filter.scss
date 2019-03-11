@@ -1,0 +1,82 @@
+// 遮罩层
+.filter_mask {
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 12;
+  background: rgba(0,0,0,.5);
+}
+.filter_box{
+  width: 100%;
+  position: relative;
+  z-index: 24;
+  .bar_filter{
+    height: 88px;
+    background: #fff;
+    border-bottom: 1px solid #e4e4e4;
+    overflow: hidden;
+    font-size: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 24px;
+    z-index: 23;
+    position: relative;
+    .bar_item{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .text{
+        font-size: 28px;
+        font-weight: 500;
+        color: #999;
+      }
+      .arrow{
+        height: 30px;
+        width: 30px;
+        &._up{
+          transform:rotate(180deg);
+        }
+      }
+    }
+  }
+}
+
+
+.filter_drop_box{
+  position: absolute;
+  width: 100%;
+  z-index: 22;
+  display: flex;
+
+  .filter_left{
+    flex: 0 45%;
+    background: #f0f2f5;
+    .filter_item{
+      height: 88px;
+      padding: 0 20px;
+      line-height: 88px;
+      font-size: 28px;
+      &.active{
+        background: #fff;
+      }
+    }
+  }
+
+  .filter_right{
+    flex: 1;
+    background: #fff;
+    .filter_item{
+      border-bottom: 1px solid #e4e4e4;
+      height: 88px;
+      line-height: 88px;
+      padding: 0 20px;
+      font-size: 28px;
+      &.active{
+        color: #e70b00;
+      }
+    }
+  }
+}

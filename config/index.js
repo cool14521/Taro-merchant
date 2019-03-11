@@ -30,7 +30,8 @@ const config = {
     '@/constants': path.resolve(__dirname, '..', 'src/constants'),
     '@/scss': path.resolve(__dirname, '..', 'src/scss'),
     '@/config': path.resolve(__dirname, '..', 'src/config'),
-    '@/models': path.resolve(__dirname, '..', 'src/models')
+    '@/models': path.resolve(__dirname, '..', 'src/models'),
+    '@/static': path.resolve(__dirname, '..', 'src/static')
   },
   defineConstants: {
   },
