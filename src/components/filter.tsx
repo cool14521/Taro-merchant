@@ -3,6 +3,10 @@ import Taro, { Component } from '@tarojs/taro'
 import { View, Image } from '@tarojs/components'
 import styles from '@/scss/components/filter.scss'
 import arrowImg from '@/static/images/arrow.png'
+import fly from '@/config/fly'
+import {ResponseSuccess} from '@/constants/response'
+import { serviceCateList } from '@/models/order'
+
 /**
  * @功能 : 筛选组件
  * @headerList : 头部的list
@@ -27,7 +31,8 @@ type PageState = {
   showMask: boolean,
   showUnit: boolean,
   unitList: unit[],
-  currentUnit: string
+  currentUnit: string,
+  currentUnitText: string
 }
 
 type IProps = PageStateProps & PageDispatchProps & PageOwnProps
@@ -55,13 +60,40 @@ class Filter extends Component {
         text: '月',
         value: 'month'
       }], // 单位列表
-      currentUnit: 'day' // 当前的单位
+      currentUnit: 'day', // 当前的单位value
+      currentUnitText: '日' // 当前的单位
+    }
+  }
+
+
+
+  // 获取数据
+  async fetchData() {
+    Taro.showLoading({
+      title: '正在加载',
+      mask: true
+    })
+
+    try{
+      const res = await fly.get<serviceCateList>('/api/catalog/storeBoundedCateList', {
+        // startDate: this.state.startDate,
+        // endDate: this.state.endDate
+      })
+      if(res.data.code === ResponseSuccess){
+        this.setState({
+          data: res.data.data
+        })
+      }
+      Taro.hideLoading()
+    }catch(e) {
+      Taro.hideLoading()
     }
   }
 
   // 点击服务filter
   onFilterService() {
     this.setState({
+      showUnit: false,
       showMask: true,
       showService: true
     })
@@ -92,7 +124,9 @@ class Filter extends Component {
   // 点击单位item
   onUnitItem(item) {
     this.setState({
-      currentUnit: item.value
+      showService: false,
+      currentUnit: item.value,
+      currentUnitText: item.text
     })
   }
 
@@ -109,7 +143,7 @@ class Filter extends Component {
             <Image src={arrowImg} className={`${styles['arrow']}`} />
           </View>
           <View onClick={this.onFilterUnit} className={styles['bar_item']}>
-            <View className={styles['text']}>月（单位）</View>
+            <View className={styles['text']}>{this.state.currentUnitText}（单位）</View>
             <Image src={arrowImg} className={styles['arrow']} />
           </View>
           <View onClick={this.onFilterTime} className={styles['bar_item']}>
