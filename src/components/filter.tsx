@@ -5,7 +5,7 @@ import styles from '@/scss/components/filter.scss'
 import arrowImg from '@/static/images/arrow.png'
 import fly from '@/config/fly'
 import {ResponseSuccess} from '@/constants/response'
-import { serviceCateList } from '@/models/order'
+import { serviceCateList, cate } from '@/models/order'
 
 /**
  * @功能 : 筛选组件
@@ -32,7 +32,16 @@ type PageState = {
   showUnit: boolean,
   unitList: unit[],
   currentUnit: string,
-  currentUnitText: string
+  currentUnitText: string,
+  cateLeft: cate[],
+  cateRight: cate[],
+  paramsData : {
+    leftCateId: string,
+    rightCateId: string
+    startDate: string,
+    endData: string,
+    cateName: string
+  }
 }
 
 type IProps = PageStateProps & PageDispatchProps & PageOwnProps
@@ -61,32 +70,33 @@ class Filter extends Component {
         value: 'month'
       }], // 单位列表
       currentUnit: 'day', // 当前的单位value
-      currentUnitText: '日' // 当前的单位
+      currentUnitText: '日', // 当前的单位
+      cateLeft: [], // 服务分类
+      cateRight: [],
+      paramsData: { // 请求需要的数据
+        leftCateId: '',
+        rightCateId: '',
+        cateName: '全部服务',
+        startDate: '',
+        endData: ''
+      }
     }
   }
 
+  componentDidMount() {
+    this.fetchCate()
+  }
 
-
-  // 获取数据
-  async fetchData() {
-    Taro.showLoading({
-      title: '正在加载',
-      mask: true
-    })
-
+  // 获取分类数据
+  async fetchCate() {
     try{
-      const res = await fly.get<serviceCateList>('/api/catalog/storeBoundedCateList', {
-        // startDate: this.state.startDate,
-        // endDate: this.state.endDate
-      })
+      const res = await fly.get<serviceCateList>('/api/catalog/storeBoundedCateList')
       if(res.data.code === ResponseSuccess){
         this.setState({
-          data: res.data.data
+          cateLeft: res.data.data
         })
       }
-      Taro.hideLoading()
     }catch(e) {
-      Taro.hideLoading()
     }
   }
 
@@ -103,7 +113,8 @@ class Filter extends Component {
   onFilterUnit() {
     this.setState({
       showMask: true,
-      showUnit: true
+      showUnit: true,
+      showService: false
     })
   }
 
@@ -130,6 +141,32 @@ class Filter extends Component {
     })
   }
 
+  // 点击服务右侧选项
+  onCateRight(item) {
+    let arr = []
+    let data = this.state.paramsData
+    data.leftCateId = item.value
+    this.state.cateLeft.forEach( element => {
+      if(element.value === item.value){
+        arr = item.children
+      }
+    })
+    this.setState({
+      cateRight: arr,
+      paramsData: data
+    })
+  }
+
+  // 点击服务右侧选项
+  onCateLeft(item) {
+    let data = this.state.paramsData
+    data.rightCateId = item.value
+    data.cateName = item.label
+    this.setState({
+      paramsData: data
+    })
+  }
+
   render () {
     return (
       <View className={styles['filter_box']}>
@@ -139,7 +176,7 @@ class Filter extends Component {
         {/* bar */}
         <View className={styles['bar_filter']}>
           <View onClick={this.onFilterService} className={styles['bar_item']}>
-            <View className={styles['text']}>全部服务</View>
+            <View className={styles['text']}>{this.state.paramsData.cateName}</View>
             <Image src={arrowImg} className={`${styles['arrow']}`} />
           </View>
           <View onClick={this.onFilterUnit} className={styles['bar_item']}>
@@ -157,11 +194,22 @@ class Filter extends Component {
           &&
           <View className={styles['filter_drop_box']}>
             <View className={styles['filter_left']}>
-              <View className={`${styles['filter_item']} ${styles['active']}`}>全服</View>
-              <View className={styles['filter_item']}>全部服</View>
+              {
+                this.state.cateLeft.map( item => {
+                  return (
+                    <View onClick={this.onCateRight.bind(this, item)} key={item.value}  className={`${styles['filter_item']} ${this.state.paramsData.leftCateId === item.value ? styles['active']: ''}`}>{item.label}</View>
+                  )
+                })
+              }
             </View>
             <View className={styles['filter_right']}>
-              <View className={`${styles['filter_item']} ${styles['active']}`}>全部服</View>
+              {
+                this.state.cateRight.map( item => {
+                  return (
+                    <View onClick={this.onCateLeft.bind(this, item)} key={item.value} className={`${styles['filter_item']} ${this.state.paramsData.rightCateId === item.value ? styles['active']: ''}`}>{item.label}</View>
+                  )
+                })
+              }
             </View>
           </View>
         }
